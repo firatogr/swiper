@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+           
+        }
+
+        .main {
+            display: flex;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .main .slide {
+            position: relative;
+            pointer-events: none;
+            user-select: none;
+            margin: 10px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="contanier">
+        <div class="swiper">
+            <div class="slide">
+                <img height="200" src="https://source.unsplash.com/1600x900?girl" />
+            </div>
+            <div class="slide">
+                <img height="200" src="https://source.unsplash.com/1600x900?boy" />
+            </div>
+            <div class="slide">
+                <img height="200" src="https://source.unsplash.com/1600x900?car" />
+            </div>
+            <div class="slide">
+                <img height="200" src="https://source.unsplash.com/1600x900?villa" />
+            </div>
+            <div class="slide">
+                <img height="200" src="https://source.unsplash.com/1600x900?business" />
+            </div>
+        </div>
+    </div>
+    <script>
+        class Swiper {
+            constructor (element, method) {
+                this.swiper = document.querySelector(element)
+                this.method = method
+
+                switch(this.method) {
+                    case 'drag':
+                        this.drag()
+                        break;       
+                }
+            }
+
+            c (c) {
+                console.log(c)
+            }
+
+            move (e) {
+                this.isDown ? this.swiper.scrollLeft = this.scrollLeft + this.mouseX + this.swiper.offsetLeft - e.pageX : null
+            }
+
+            leave () {
+                this.isDown = false
+            }
+
+            up () {
+                this.isDown = false
+            }
+
+            down (e) {
+                this.scrollLeft = this.swiper.scrollLeft
+                this.mouseX = e.pageX - this.swiper.offsetLeft
+                this.isDown = true
+            }
+
+            drag () {
+                this.isDown = false
+                this.swiper.classList.add('main')
+
+                this.swiper.addEventListener('mousemove', this.move.bind(this))
+                this.swiper.addEventListener('mousedown', this.down.bind(this))
+                this.swiper.addEventListener('mouseleave', this.leave.bind(this))
+                this.swiper.addEventListener('mouseup', this.up.bind(this))
+            }
+        }
+        new Swiper('.swiper', 'drag')
+    </script>
+</body>
+</html>
